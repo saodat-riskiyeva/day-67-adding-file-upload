@@ -1,7 +1,16 @@
 const express = require("express");
 const multer = require("multer");
 
-const upload = multer({ dest: "images" });
+const storageConfig = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "images"); // Directory to save uploaded files
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + "-" + file.originalname); // Unique filename
+  },
+});
+
+const upload = multer({ storage: storageConfig });
 const router = express.Router();
 
 router.get("/", function (req, res) {

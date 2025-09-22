@@ -17,7 +17,6 @@ const router = express.Router();
 
 router.get("/", async function (req, res) {
   const users = await db.getDb().collection("users").find().toArray();
-  console.log(users);
   res.render("profiles", { users: users });
 });
 
